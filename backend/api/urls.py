@@ -8,6 +8,7 @@ from .views import (
     WorkerViewSet, AttendanceViewSet, ExpenseViewSet,
     HarvestViewSet, BuyerViewSet, SaleViewSet, AuctionViewSet,
 )
+from .auth_views import login_view, logout_view, me_view
 
 router = DefaultRouter()
 router.register(r'ponds', PondViewSet)
@@ -28,5 +29,11 @@ router.register(r'sales', SaleViewSet)
 router.register(r'auctions', AuctionViewSet)
 
 urlpatterns = [
+    # Auth endpoints
+    path('auth/login/', login_view, name='auth-login'),
+    path('auth/logout/', logout_view, name='auth-logout'),
+    path('auth/me/', me_view, name='auth-me'),
+    
+    # All model endpoints
     path('', include(router.urls)),
 ]

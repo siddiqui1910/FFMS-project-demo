@@ -1,4 +1,5 @@
 import './globals.css';
+import { AuthProvider } from '@/lib/auth';
 
 export const metadata = {
   title: 'FFMS - Fish Farm Management System',
@@ -9,7 +10,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="min-h-screen bg-slate-50">
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
