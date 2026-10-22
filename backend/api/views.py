@@ -1,5 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.authentication import SessionAuthentication
+
 from .models import (
     Pond, Species, Batch, FingerlingStocking,
     FeedInventory, FeedConsumption, MortalityRecord,
@@ -16,9 +18,18 @@ from .serializers import (
 )
 
 
-# For simplicity in this project: everyone can read, only logged-in can write
+# ============================================================
+# DEV-ONLY: Skip CSRF for API endpoints (session auth still required)
+# Do NOT use this pattern in production.
+# ============================================================
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+    def enforce_csrf(self, request):
+        return
+
+
 class BaseViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
+    authentication_classes = [CsrfExemptSessionAuthentication]
 
 
 # ============================================================

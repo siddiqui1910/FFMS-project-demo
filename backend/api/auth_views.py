@@ -1,13 +1,21 @@
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from rest_framework.decorators import api_view, permission_classes
+from django.middleware.csrf import get_token
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.authentication import SessionAuthentication
+
+
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+    """DEV ONLY: skips CSRF check for API endpoints."""
+    def enforce_csrf(self, request):
+        return
 
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
+@authentication_classes([CsrfExemptSessionAuthentication])
 def login_view(request):
     """Login endpoint. Accepts username + password."""
     username = request.data.get('username')
@@ -28,6 +36,7 @@ def login_view(request):
         )
 
     login(request, user)
+    get_token(request)  # ensures csrftoken cookie is set
 
     return Response({
         'id': user.id,
@@ -40,6 +49,7 @@ def login_view(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
+@authentication_classes([CsrfExemptSessionAuthentication])
 def logout_view(request):
     """Logout endpoint."""
     logout(request)
