@@ -4,6 +4,7 @@ export default function PondsPage() {
   return (
     <CrudPage
       title="Ponds"
+      singular="Pond"
       endpoint="/ponds/"
       columns={[
         { key: 'id', label: 'ID' },

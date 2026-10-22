@@ -8,7 +8,7 @@ import api from '@/lib/api';
 import { useAuth } from '@/lib/auth';
 import Navbar from '@/components/Navbar';
 
-export default function CrudPage({ title, endpoint, columns, fields, titleKey = 'id' }) {
+export default function CrudPage({ title, singular, endpoint, columns, fields, titleKey = 'id' }) {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
@@ -77,10 +77,10 @@ export default function CrudPage({ title, endpoint, columns, fields, titleKey = 
     try {
       if (editingItem) {
         await api.put(`${endpoint}${editingItem.id}/`, formData);
-        toast.success(`${title.slice(0, -1)} updated`);
+        toast.success(`${singular} updated`);
       } else {
         await api.post(`${endpoint}`, formData);
-        toast.success(`${title.slice(0, -1)} created`);
+        toast.success(`${singular} created`);
       }
       setModalOpen(false);
       fetchItems();
@@ -99,7 +99,7 @@ export default function CrudPage({ title, endpoint, columns, fields, titleKey = 
     if (!deleteConfirm) return;
     try {
       await api.delete(`${endpoint}${deleteConfirm.id}/`);
-      toast.success(`${title.slice(0, -1)} deleted`);
+      toast.success(`${singular} deleted`);
       setDeleteConfirm(null);
       fetchItems();
     } catch (err) {
@@ -143,7 +143,7 @@ export default function CrudPage({ title, endpoint, columns, fields, titleKey = 
               </p>
             </div>
             <button onClick={openNewModal} className="btn-primary">
-              + Add {title.slice(0, -1)}
+              + Add {singular}
             </button>
           </div>
 
@@ -174,7 +174,7 @@ export default function CrudPage({ title, endpoint, columns, fields, titleKey = 
               <div className="p-8 text-center text-slate-500">Loading...</div>
             ) : filteredItems.length === 0 ? (
               <div className="p-8 text-center text-slate-500">
-                {items.length === 0 ? `No ${title.toLowerCase()} yet. Click "Add ${title.slice(0, -1)}" to get started.` : 'No matches found.'}
+                {items.length === 0 ? `No ${title.toLowerCase()} yet. Click "Add ${singular}" to get started.` : 'No matches found.'}
               </div>
             ) : (
               <div className="overflow-x-auto">
@@ -225,7 +225,7 @@ export default function CrudPage({ title, endpoint, columns, fields, titleKey = 
           <div className="bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <h2 className="text-xl font-bold mb-4">
-                {editingItem ? `Edit ${title.slice(0, -1)}` : `Add ${title.slice(0, -1)}`}
+                {editingItem ? `Edit ${singular}` : `Add ${singular}`}
               </h2>
 
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -295,7 +295,7 @@ export default function CrudPage({ title, endpoint, columns, fields, titleKey = 
       {deleteConfirm && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-sm p-6">
-            <h3 className="text-lg font-bold mb-2">Delete {title.slice(0, -1)}?</h3>
+            <h3 className="text-lg font-bold mb-2">Delete {singular}?</h3>
             <p className="text-slate-600 mb-6 text-sm">
               This action cannot be undone.
             </p>
