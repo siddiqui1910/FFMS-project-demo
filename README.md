@@ -3,7 +3,7 @@
 A full-stack database management system built to automate the operations of a 96-acre fish farm in Gharo, Sindh. 
 
 **Course:** Database Management Systems (DBMS)
-**Student:** Daniyal Siddiqui (UBIT, University of Karachi)
+**Students:** Daniyal Siddiqui and Abdul Rehman (UBIT, University of Karachi)
 **Professor:** Khalid Jamal
 
 ## Technology Stack
