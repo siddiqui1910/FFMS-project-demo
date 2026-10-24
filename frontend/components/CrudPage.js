@@ -137,8 +137,8 @@ export default function CrudPage({ title, singular, endpoint, columns, fields, t
           {/* Header */}
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-slate-900">{title}</h1>
-              <p className="text-slate-500 mt-1">
+              <h1 className="text-4xl font-playfair font-bold text-amber-500 tracking-wide">{title}</h1> 
+              <p className="text-slate-400 text-sm tracking-widest uppercase mt-2">
                 {items.length} {items.length === 1 ? 'record' : 'records'}
               </p>
             </div>
@@ -173,8 +173,8 @@ export default function CrudPage({ title, singular, endpoint, columns, fields, t
             {loading ? (
               <div className="p-8 text-center text-slate-500">Loading...</div>
             ) : filteredItems.length === 0 ? (
-              <div className="p-8 text-center text-slate-500">
-                {items.length === 0 ? `No ${title.toLowerCase()} yet. Click "Add ${singular}" to get started.` : 'No matches found.'}
+              <div className="p-12 text-center text-slate-500 italic">
+                {items.length === 0 ? `No ${title.toLowerCase()} found in the ledger. Click "Add ${singular}" to begin.` : 'No matching records found.'}
               </div>
             ) : (
               <div className="overflow-x-auto">
@@ -198,16 +198,16 @@ export default function CrudPage({ title, singular, endpoint, columns, fields, t
                         <td className="text-right whitespace-nowrap">
                           <button
                             onClick={() => openEditModal(item)}
-                            className="text-sky-600 hover:underline text-sm mr-3"
+                            className="text-amber-500/70 hover:text-amber-400 text-xs font-semibold tracking-wider uppercase mr-4 transition-colors"  
                           >
                             Edit
                           </button>
                           <button
                             onClick={() => setDeleteConfirm(item)}
-                            className="text-red-600 hover:underline text-sm"
+                            className="text-red-500/70 hover:text-red-400 text-xs font-semibold tracking-wider uppercase transition-colors"
                           >
                             Delete
-                          </button>
+                          </button> 
                         </td>
                       </tr>
                     ))}
@@ -224,7 +224,7 @@ export default function CrudPage({ title, singular, endpoint, columns, fields, t
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <div className="p-6">
-              <h2 className="text-xl font-bold mb-4">
+              <h2 className="text-2xl font-playfair font-bold text-amber-500 mb-6">
                 {editingItem ? `Edit ${singular}` : `Add ${singular}`}
               </h2>
 

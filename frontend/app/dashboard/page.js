@@ -80,8 +80,8 @@ export default function Dashboard() {
       <main className="min-h-screen p-8">
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
-            <p className="text-slate-500 mt-1">Welcome back, {user.username}</p>
+            <h1 className="text-4xl font-playfair font-bold text-amber-500 tracking-wide">Dashboard</h1>
+            <p className="text-slate-400 text-sm tracking-widest uppercase mt-2">Welcome back, {user.username}</p>
           </div>
 
           {error && (
@@ -99,15 +99,12 @@ export default function Dashboard() {
 
           {statsLoading && <p className="text-slate-500">Loading stats...</p>}
 
-          <div className="card">
-            <h2 className="text-xl font-semibold mb-4">Quick Links</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <Link href="/ponds" className="btn-secondary text-center">Ponds</Link>
-              <Link href="/batches" className="btn-secondary text-center">Batches</Link>
-              <Link href="/feed" className="btn-secondary text-center">Feed</Link>
-              <Link href="/water" className="btn-secondary text-center">Water</Link>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Link href="/ponds" className="bg-[#111] hover:bg-[#1a1a1a] border border-[#222] hover:border-amber-500/50 text-slate-300 text-xs font-semibold tracking-widest uppercase text-center py-4 rounded-sm transition-all duration-300">Ponds</Link>
+              <Link href="/batches" className="bg-[#111] hover:bg-[#1a1a1a] border border-[#222] hover:border-amber-500/50 text-slate-300 text-xs font-semibold tracking-widest uppercase text-center py-4 rounded-sm transition-all duration-300">Batches</Link>
+              <Link href="/feed" className="bg-[#111] hover:bg-[#1a1a1a] border border-[#222] hover:border-amber-500/50 text-slate-300 text-xs font-semibold tracking-widest uppercase text-center py-4 rounded-sm transition-all duration-300">Feed</Link>
+              <Link href="/water" className="bg-[#111] hover:bg-[#1a1a1a] border border-[#222] hover:border-amber-500/50 text-slate-300 text-xs font-semibold tracking-widest uppercase text-center py-4 rounded-sm transition-all duration-300">Water</Link>
             </div>
-          </div>
         </div>
       </main>
     </>
@@ -115,16 +112,17 @@ export default function Dashboard() {
 }
 
 function StatCard({ title, value, color }) {
-  const colors = {
-    sky: 'bg-sky-50 text-sky-700 border-sky-200',
-    green: 'bg-green-50 text-green-700 border-green-200',
-    amber: 'bg-amber-50 text-amber-700 border-amber-200',
-    slate: 'bg-slate-50 text-slate-700 border-slate-200',
+  const borders = {
+    sky: 'border-amber-500/50 text-amber-500',
+    green: 'border-emerald-500/50 text-emerald-500',
+    amber: 'border-orange-500/50 text-orange-500',
+    slate: 'border-slate-500/50 text-slate-300',
   };
+  
   return (
-    <div className={`rounded-lg border p-6 ${colors[color]}`}>
-      <p className="text-sm font-medium opacity-75">{title}</p>
-      <p className="text-3xl font-bold mt-2">{value}</p>
+    <div className={`bg-[#0a0a0a] rounded-sm border border-[#222] p-6 shadow-xl relative overflow-hidden border-l-2 ${borders[color]}`}>
+      <p className="text-[10px] font-bold tracking-widest uppercase text-slate-500 mb-3">{title}</p>
+      <p className={`text-5xl font-playfair font-bold ${borders[color].split(' ')[1]}`}>{value}</p>
     </div>
   );
 }
